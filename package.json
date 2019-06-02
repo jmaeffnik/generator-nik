@@ -1,0 +1,32 @@
+{
+  "name": "@nj/yo-nj",
+  "version": "0.1.0",
+  "description": "Package scaffold for typescript",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "10.14.4",
+    "@types/gulp": "^4.0.6",
+    "@types/fs-extra": "^7.0.0",
+    "gulp": "^4.0.2",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "typescript": "^3.4.5",
+    "jest": "^24.8.0",
+    "fs-extra": "^8.0.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "bump": "npm version patch",
+    "clean": "gulp clean"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      ".scratch"
+    ]
+  },
+  "bin": {}
+}

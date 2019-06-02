@@ -1,0 +1,32 @@
+#
+# Azure Pipelines configuration for building and testing Jest on Linux, Windows, and macOS.
+#
+trigger:
+  branches:
+    include:
+      - master
+      - dev
+      - feat/*
+
+jobs:
+  - job: Linux
+    pool:
+      vmImage: ubuntu-16.04
+    steps:
+      - template: .azure-pipelines/common-steps.yml
+
+  - job: Windows
+    dependsOn: Linux
+    pool:
+      vmImage: vs2017-win2016
+    steps:
+      - script: |
+          git config --global core.autocrlf false
+          git config --global core.symlinks true
+        displayName: 'Preserve LF endings and symbolic links on check out'
+      - template: .azure-pipelines/publish-steps.yml
+
+variables:
+  # Used by chalk. Ensures output from Jest includes ANSI escape characters that are needed to match test snapshots.
+  FORCE_COLOR: 1
+  CI: 1
