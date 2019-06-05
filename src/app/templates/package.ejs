@@ -1,27 +1,14 @@
 {
-  "name": "generator-nj",
+  "name": "<%=name %>",
   "version": "0.1.0",
-  "description": "Package scaffold for typescript",
-  "files": [
-    "generators"
-  ],
-  "keywords": [
-    "yeoman-generator"
-  ],
+  "description": "<%=description %>",
   "dependencies": {
-    "yeoman-generator": "^1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
     "@types/node": "10.14.4",
     "@types/gulp": "^4.0.6",
     "@types/fs-extra": "^7.0.0",
-    "@types/yeoman-generator": "^3.1.3",
-    "@types/yeoman-assert": "^3.1.1",
-    "@types/yeoman-test": "^2.0.3",
-    "execa": "^1.0.0",
-    "yeoman-test": "^2.0.0",
-    "yeoman-assert": "^3.1.1",
     "gulp": "^4.0.2",
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -36,12 +23,6 @@
     "build": "tsc",
     "bump": "npm version patch",
     "clean": "gulp clean"
-  },
-  "jest": {
-    "modulePathIgnorePatterns": [
-      ".scratch",
-      "templates"
-    ]
   },
   "bin": {}
 }

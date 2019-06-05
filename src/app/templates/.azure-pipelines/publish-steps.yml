@@ -1,0 +1,16 @@
+#
+# Steps for building and testing Jest. See jobs defined in .azure-pipelines.yml
+#
+
+# Clones the repo
+steps:
+  - template: common-steps.yml
+  - ${{if eq(variables['Build.SourceBranch'], 'refs/heads/master')}}:
+
+    - task: Npm@1
+      inputs:
+        command: publish
+        publishRegistry: useFeed
+        publishFeed: js-dev
+
+      condition: succeeded()

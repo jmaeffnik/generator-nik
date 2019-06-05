@@ -1,0 +1,30 @@
+#
+# Steps for building and testing Jest. See jobs defined in .azure-pipelines.yml
+#
+
+# Clones the repo
+steps:
+  - checkout: self
+
+  # Ensure Node.js 10 is active
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Use Node.js 10'
+
+  - task: Npm@1
+    displayName: 'npm install'
+    inputs:
+      verbose: false
+
+  # test project
+  - script: npm run test:ci
+    displayName: 'Run CI Tests'
+
+  # Publish CI test results
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: '*junit.xml'
+      testRunTitle: 'CI Tests $(Agent.OS)'
+    displayName: 'Publish test results'
+    condition: succeededOrFailed()
