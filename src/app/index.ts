@@ -16,7 +16,7 @@ export default class extends Generator
     /**
      * Initial custom data
      */
-    private store: {
+    _store: {
         appName: string;
         license: string;
         answers;
@@ -25,6 +25,7 @@ export default class extends Generator
     constructor(args, opts)
     {
         super(args, opts);
+        this._store = {} as any
     }
 
     async prompting()
@@ -32,7 +33,7 @@ export default class extends Generator
 
         let baseQuestions = [];
 
-        if(!this.store.appName)
+        if(!this._store.appName)
         {
             baseQuestions.push({
                 type: 'input',
@@ -47,7 +48,7 @@ export default class extends Generator
                 type: 'list',
                 name: 'license',
                 message: 'License',
-                choices: 'MIT'
+                choices: ['MIT']
             },
             {
                 type: 'input',
@@ -68,9 +69,9 @@ export default class extends Generator
                 default: 'nik@nikkij.me'
             }] as any);
 
-        this.store.answers = answers;
+        this._store.answers = answers;
 
-        return answers
+        // return answers
     }
 
     writing()
@@ -102,10 +103,6 @@ export default class extends Generator
             {
                 from: this.templatePath('.npmrc'),
                 to: this.destinationPath('.npmrc'),
-            },
-            {
-                from: this.templatePath('.npmignore'),
-                to: this.destinationPath('.npmignore'),
             }
         ];
         this._scaffold(scaffoldManifest);
@@ -216,7 +213,7 @@ export default class extends Generator
 
             if(el.type === "ejs")
             {
-                this.fs.copyTpl(el.from, el.to, this.store);
+                this.fs.copyTpl(el.from, el.to, this._store);
             }
             else
             {

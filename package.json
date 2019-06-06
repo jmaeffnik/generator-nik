@@ -5,6 +5,7 @@
   "files": [
     "generators"
   ],
+  "main": "generators/app/index.js",
   "keywords": [
     "yeoman-generator"
   ],
@@ -28,6 +29,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-typescript": "^7.3.3",
+    "@babel/cli": "^7.4.4",
     "typescript": "^3.4.5",
     "jest": "^24.8.0",
     "fs-extra": "^8.0.1"

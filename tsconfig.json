@@ -3,7 +3,7 @@
     "module": "commonjs",
     "declaration": true,
     "sourceMap": true,
-    "target": "esnext",
+    "target": "es2015",
     "outDir": "generators",
     "resolveJsonModule": true,
     "esModuleInterop": true,

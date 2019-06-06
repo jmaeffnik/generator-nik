@@ -15,7 +15,7 @@ async function clean() {
 
 async function tsc() {
 
-    return await execa('tsc');
+    return await execa('./node_modules/.bin/babel src -o generators');
 }
 
 async function copyStatic() {
