@@ -1,7 +1,6 @@
-const execa = require('execa');
 const fs = require('fs-extra');
 const gulp = require('gulp');
-
+const babel = require('gulp-babel');
 
 async function clean() {
 
@@ -13,9 +12,18 @@ async function clean() {
     return await promises;
 }
 
-async function tsc() {
+async function compile() {
 
-    return await execa('./node_modules/.bin/babel src -o generators');
+    process.env.BABEL_ENV = 'development';
+    const config = require('./babel.config');
+
+    delete config.sourceMaps;
+    delete config.ignore;
+
+    return gulp
+        .src(['src/**/*.ts', '!src/**/templates/**', '!src/**/__tests__/**'])
+        .pipe(babel(config))
+        .pipe(gulp.dest('generators'));
 }
 
 async function copyStatic() {
@@ -23,11 +31,11 @@ async function copyStatic() {
     return await fs.copy('src/app/templates', 'generators/app/templates')
 }
 
-const build = gulp.series(clean, tsc, copyStatic);
+const build = gulp.series(clean, compile, copyStatic);
 
 module.exports = {
     clean,
     build,
-    tsc,
+    compile,
     copyStatic
 };
