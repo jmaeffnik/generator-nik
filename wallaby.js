@@ -30,11 +30,6 @@ module.exports = function (wallaby) {
         compilers: {
             '**/*.ts?(x)': wallaby.compilers.babel()
         },
-
-        // setup: function (wallaby) {
-        //     let jestConfig = require('./jest.config2');
-        //     wallaby.testFramework.configure(jestConfig);
-        // }
     };
 };
 
