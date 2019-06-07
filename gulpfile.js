@@ -21,9 +21,9 @@ async function compile() {
     delete config.ignore;
 
     return gulp
-        .src(['src/**/*.ts', '!src/**/templates/**', '!src/**/__tests__/**'])
+        .src(['src/**/*.ts', '!src/**/templates/**', '!src/**/__tests__/**'], )
         .pipe(babel(config))
-        .pipe(gulp.dest('generators'));
+        .pipe(gulp.dest('generators', ));
 }
 
 async function copyStatic() {

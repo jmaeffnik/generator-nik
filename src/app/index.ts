@@ -1,4 +1,3 @@
-import * as path from "path";
 import Generator from "yeoman-generator";
 
 interface IScaffoldMeta
@@ -25,7 +24,9 @@ export default class extends Generator
     constructor(args, opts)
     {
         super(args, opts);
-        this._store = {} as any
+        this._store = {} as any;
+        this.argument('appName', {type: String, description: 'what is the appName of the project?', required: false});
+        this._store.appName = this.options.appName;
     }
 
     async prompting()
@@ -37,7 +38,7 @@ export default class extends Generator
         {
             baseQuestions.push({
                 type: 'input',
-                name: 'pkg',
+                name: 'appName',
                 message: 'Your package name (no word-breaks)',
             })
         }
@@ -69,9 +70,8 @@ export default class extends Generator
                 default: 'nik@nikkij.me'
             }] as any);
 
-        this._store.answers = answers;
+        this._store = Object.assign(this._store, answers);
 
-        // return answers
     }
 
     writing()
@@ -197,6 +197,8 @@ export default class extends Generator
             devDependencies: {
                 "@types/fs-extra": "^7.0.0",
                 "@types/gulp": "^4.0.6",
+                "@types/gulp-babel": "^6.1.29",
+                "gulp-babel": "^8.0.0",
                 "fs-extra": "^8.0.1",
                 "gulp": "^4.0.2",
             }
