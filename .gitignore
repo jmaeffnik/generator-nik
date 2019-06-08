@@ -162,4 +162,4 @@ fabric.properties
 .scratch
 
 generators
-.temp
+**/.tmp

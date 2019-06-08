@@ -1,4 +1,5 @@
 process.env.BABEL_ENV = 'test';
+process.env.JEST_ENV = 'dev-unit';
 
 module.exports = function (wallaby) {
     return {
@@ -6,10 +7,11 @@ module.exports = function (wallaby) {
             '!**/node_modules/**',
             '!dist/**',
             '!**/*.test.ts',
+            '!**/*.e2e.ts',
             {pattern: '**/__fixtures__/**', instrument: false},
             {pattern: '**/__snapshots__/**', instrument: false},
             '**/__mocks__/**',
-            'generators/**/*.ts',
+            'src/**/*.ts',
         ],
         tests: [
             '!**/node_modules/**',
@@ -29,7 +31,7 @@ module.exports = function (wallaby) {
 
         compilers: {
             '**/*.ts?(x)': wallaby.compilers.babel()
-        }
+        },
     };
 };
 

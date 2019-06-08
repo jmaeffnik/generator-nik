@@ -1,11 +1,13 @@
 process.env.BABEL_ENV = 'test';
-
+process.env.JEST_ENV = 'dev-unit';
 module.exports = function (wallaby) {
     return {
         files: [
             '!**/node_modules/**',
-            '!dist/**',
+            '!generators/**',
             '!**/*.test.ts',
+            '!**/*.e2e.ts',
+            {pattern: '**/templates/**', instrument: false},
             {pattern: '**/__fixtures__/**', instrument: false},
             {pattern: '**/__snapshots__/**', instrument: false},
             '**/__mocks__/**',
@@ -13,6 +15,7 @@ module.exports = function (wallaby) {
         ],
         tests: [
             '!**/node_modules/**',
+            '!**/templates/**',
             '**/*.test.ts',
         ],
         filesWithNoCoverageCalculated: [

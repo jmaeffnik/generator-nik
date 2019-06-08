@@ -103,7 +103,7 @@ export default class extends Generator
             {
                 from: this.templatePath('.npmrc'),
                 to: this.destinationPath('.npmrc'),
-            }
+            },
         ];
         this._scaffold(scaffoldManifest);
     }
@@ -134,6 +134,8 @@ export default class extends Generator
                 "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
                 "@babel/preset-env": "^7.4.5",
                 "@babel/preset-typescript": "^7.3.3",
+                "babel-preset-minify": "^0.5.0",
+                "babel-preset-jest": "^24.6.0",
                 "typescript": "^3.4.5",
             }
         })
@@ -201,6 +203,7 @@ export default class extends Generator
                 "gulp-babel": "^8.0.0",
                 "fs-extra": "^8.0.1",
                 "gulp": "^4.0.2",
+                "execa": "^1.0.0"
             }
         });
 

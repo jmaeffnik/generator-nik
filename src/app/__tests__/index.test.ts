@@ -1,26 +1,26 @@
-import helpers from "yeoman-test";
-import * as path from "path";
-import * as fs from "fs-extra";
-import * as assert from "yeoman-assert";
+// import Generator from "../";
 
-jest.setTimeout(1000 * 60 * 60);
+// jest.mock('yeoman-generator');
+// const MockGenerator = require('yeoman-generator');
+//
+// MockGenerator.prototype.options = {};
+//
+// const instance = new Generator();
+//
+// instance.fs = {
+//     copyTpl: jest.fn(),
+//     copy: jest.fn(),
+//     extendJSON: jest.fn()
+// };
+//
+// instance.destinationPath.mockImplementation((arg) => arg);
+// instance.templatePath.mockImplementation((arg) => arg);
 
-describe("examples", function()
+// TODO: Figure out how to best unit test yeoman...
+describe.skip("examples", function()
 {
-
-    const tmpDir = path.join(__dirname, 'tmp');
-
-    afterEach(() =>
+    test("writing", function()
     {
-        fs.removeSync(tmpDir);
-    });
-
-    test("default", async function()
-    {
-        await helpers.run(path.join(__dirname, '../'))
-            .inDir(tmpDir);
-
-        assert.file('package.json')
     });
 
 });
