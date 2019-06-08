@@ -23,8 +23,12 @@ steps:
       verbose: false
 
   # test project
-  - script: npm run test:ci
-    displayName: 'Run CI Tests'
+  - script: npm run test:ci-unit
+    displayName: 'Run CI Unit Tests'
+
+  # test project
+  - script: npm run test:ci-e2e
+    displayName: 'Run CI E2E Tests'
 
   # Publish CI test results
   - task: PublishTestResults@2
