@@ -163,3 +163,4 @@ fabric.properties
 
 generators
 **/.tmp
+junit.xml

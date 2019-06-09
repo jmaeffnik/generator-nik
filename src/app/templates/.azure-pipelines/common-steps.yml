@@ -20,11 +20,19 @@ steps:
   - task: Npm@1
     displayName: 'npm run build'
     inputs:
-      verbose: false
+      verbose: true
 
   # test project
   - script: npm run test:ci-unit
     displayName: 'Run CI Unit Tests'
+
+  # Publish CI test results
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: '*junit.xml'
+      testRunTitle: 'CI Tests Unit $(Agent.OS)'
+    displayName: 'Publish test results'
+    condition: succeededOrFailed()
 
   # test project
   - script: npm run test:ci-e2e
@@ -34,6 +42,6 @@ steps:
   - task: PublishTestResults@2
     inputs:
       testResultsFiles: '*junit.xml'
-      testRunTitle: 'CI Tests $(Agent.OS)'
+      testRunTitle: 'CI Tests E2E $(Agent.OS)'
     displayName: 'Publish test results'
     condition: succeededOrFailed()

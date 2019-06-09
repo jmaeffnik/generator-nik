@@ -159,6 +159,7 @@ export default class extends Generator
         this.fs.extendJSON(this.destinationPath('package.json'), {
             devDependencies: {
                 "@types/jest": "^24.0.13",
+                "jest-junit": "^6.4.0",
                 "jest": "^24.8.0",
             }
         });

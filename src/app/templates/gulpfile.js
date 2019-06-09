@@ -4,10 +4,12 @@ const babel = require('gulp-babel');
 const path = require('path');
 const execa = require('execa');
 
-async function run(cmd) {
+const runner = (args, cmd) => async jestEnv => {
     const cmdPath = path.join('node_modules', '.bin', cmd);
-    return await execa(cmdPath,{stdio: 'inherit'})
-}
+    return await execa(cmdPath, args, {stdio: 'inherit', env: {JEST_ENV: jestEnv}})
+};
+
+const jestRunner = runner(process.argv.slice(3), 'jest');
 
 async function clean() {
 
@@ -28,38 +30,31 @@ async function compile() {
     delete config.ignore;
 
     return gulp
-        .src(['src/**/*.ts',], )
+        .src(['src/**/*.ts',],{sourcemaps:true})
         .pipe(babel(config))
-        .pipe(gulp.dest('dist', ));
+        .pipe(gulp.dest('dist', {sourcemaps:'.'}));
 }
 
 async function testUnit() {
 
-    process.env.JEST_ENV = 'dev-unit';
-
-    return await run('jest');
+    return await jestRunner('dev-unit');
 }
 
 async function testE2e() {
-    process.env.JEST_ENV = 'dev-e2e';
 
-    return await run('jest');
+    return await jestRunner('dev-e2e');
 }
 
 async function testCIUnit() {
+    return await jestRunner('ci-unit');
 
-    process.env.JEST_ENV = 'ci-unit';
-
-    return await run('jest');
 }
 
 async function testCIE2e() {
-
-    process.env.JEST_ENV = 'ci-e2e';
-
-    return await run('jest');
+    return await jestRunner('ci-e2e');
 
 }
+
 const build = gulp.series(clean, compile,);
 
 module.exports = {
