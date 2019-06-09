@@ -17,12 +17,11 @@ steps:
     inputs:
       verbose: false
 
-  - task: Npm@1
-    displayName: 'npm run build'
-    inputs:
-      verbose: true
+  # build project
+  - script: npm run build
+    displayName: 'Run Build'
 
-  # test project
+    # test project
   - script: npm run test:ci-unit
     displayName: 'Run CI Unit Tests'
 

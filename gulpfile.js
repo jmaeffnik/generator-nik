@@ -9,7 +9,8 @@ const runner = (args, cmd) => async jestEnv => {
     return await execa(cmdPath, args, {stdio: 'inherit', env: {JEST_ENV: jestEnv}})
 };
 
-const jestRunner = runner(process.argv.slice(3), 'jest');
+const devJestRunner = runner(process.argv.slice(3), 'jest');
+const CIJestRunner = runner(['--ci', ...process.argv.slice(3)], 'jest');
 
 async function clean() {
 
@@ -43,21 +44,21 @@ async function copyStatic() {
 
 async function testUnit() {
 
-    return await jestRunner('dev-unit');
+    return await devJestRunner('dev-unit');
 }
 
 async function testE2e() {
 
-    return await jestRunner('dev-e2e');
+    return await devJestRunner('dev-e2e');
 }
 
 async function testCIUnit() {
-    return await jestRunner('ci-unit');
+    return await CIJestRunner('ci-unit');
 
 }
 
 async function testCIE2e() {
-    return await jestRunner('ci-e2e');
+    return await CIJestRunner('ci-e2e');
 
 }
 
