@@ -1,6 +1,6 @@
 {
-  "name": "generator-nj",
-  "version": "1.0.1",
+  "name": "generator-nik",
+  "version": "0.1.0",
   "description": "Package scaffold for typescript",
   "files": [
     "generators"
