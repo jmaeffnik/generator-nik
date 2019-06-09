@@ -97,7 +97,7 @@ export default class extends Generator
                 type: "ejs"
             },
             {
-                from: this.templatePath('.gitignore'),
+                from: this.templatePath('template.gitignore'),
                 to: this.destinationPath('.gitignore'),
             },
             {
