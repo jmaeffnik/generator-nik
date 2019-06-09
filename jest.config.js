@@ -19,7 +19,6 @@ let ciBase = {
     rootDir: CI_ROOT,
     transform: {},
     reporters: ['default', 'jest-junit'],
-    ci: true
 };
 
 let devBase = {
