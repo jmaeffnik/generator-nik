@@ -132,7 +132,7 @@ async function testCIE2e() {
  * What set of tasks will build our project?
  * @type {Undertaker.TaskFunction}
  */
-const build = gulp.series(clean, compile, copyStatic, buildMeta);
+const build = gulp.series(clean, tsGen, compile, copyStatic, buildMeta);
 
 module.exports = {
     clean,
@@ -143,5 +143,6 @@ module.exports = {
     testE2e,
     testCIUnit,
     testCIE2e,
-    buildMeta
+    buildMeta,
+    tsGen
 };
