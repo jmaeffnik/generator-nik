@@ -1,10 +1,11 @@
 process.env.BABEL_ENV = 'test';
-process.env.JEST_ENV = 'dev-unit';
+process.env.JEST_ENV = "wallaby";
+
 module.exports = function (wallaby) {
     return {
         files: [
             '!**/node_modules/**',
-            '!generators/**',
+            '!build/**',
             '!**/*.test.ts',
             '!**/*.e2e.ts',
             {pattern: '**/templates/**', instrument: false},

@@ -5,7 +5,7 @@ module.exports = function(wallaby) {
   return {
     files: [
       "!**/node_modules/**",
-      "!dist/**",
+      "!build/**",
       "!**/*.test.ts",
       "!**/*.e2e.ts",
       "!src/**/*.d.ts",
@@ -30,3 +30,4 @@ module.exports = function(wallaby) {
 
   };
 };
+
