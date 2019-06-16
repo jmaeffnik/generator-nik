@@ -161,6 +161,7 @@ fabric.properties
 
 .scratch
 
+generators
 **/.tmp
 junit.xml
 

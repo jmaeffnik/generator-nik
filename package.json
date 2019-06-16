@@ -39,7 +39,7 @@
     "test:e2e": "gulp testE2e",
     "test:ci-unit": "gulp testCIUnit",
     "test:ci-e2e": "gulp testCIE2e",
-    "bump": "npm version patch src",
+    "bump": "npm version patch",
     "clean": "gulp clean"
   }
 }

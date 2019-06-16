@@ -1,0 +1,3 @@
+**/__tests__/**
+!**/templates/**/__tests__/**
+.npmignore
