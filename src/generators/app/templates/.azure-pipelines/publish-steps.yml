@@ -10,6 +10,7 @@ steps:
     - task: Npm@1
       inputs:
         command: publish
+        workingDir: build
         publishRegistry: useFeed
         publishFeed: js-dev
 
