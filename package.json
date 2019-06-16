@@ -1,14 +1,7 @@
 {
-  "name": "generator-nik",
+  "name": "project",
+  "private": true,
   "version": "0.1.3",
-  "description": "Package scaffold for typescript",
-  "files": [
-    "generators"
-  ],
-  "main": "generators/app/index.js",
-  "keywords": [
-    "yeoman-generator"
-  ],
   "dependencies": {
     "yeoman-generator": "^4.0.1"
   },
@@ -24,6 +17,7 @@
     "yeoman-test": "^2.0.0",
     "yeoman-assert": "^3.1.1",
     "gulp-babel": "^8.0.0",
+    "gulp-typescript": "^5.0.1",
     "gulp": "^4.0.2",
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -44,8 +38,7 @@
     "test:e2e": "gulp testE2e",
     "test:ci-unit": "gulp testCIUnit",
     "test:ci-e2e": "gulp testCIE2e",
-    "bump": "npm version patch",
+    "bump": "npm version patch src",
     "clean": "gulp clean"
-  },
-  "bin": {}
+  }
 }

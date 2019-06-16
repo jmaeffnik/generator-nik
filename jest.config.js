@@ -1,6 +1,6 @@
 process.env.BABEL_ENV = 'test';
 
-const CI_ROOT = 'generators';
+const CI_ROOT = 'build';
 const SRC_ROOT = 'src';
 const E2E_TESTMATCH = ["**/__tests__/**/*.e2e.[jt]s?(x)"];
 const UNIT_TESTMATCH = ["**/__tests__/**/*.test.[jt]s?(x)"];

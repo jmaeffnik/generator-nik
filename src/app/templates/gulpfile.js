@@ -53,7 +53,7 @@ function compile() {
         }
       })
     )
-    .pipe(gulp.dest("dist"));
+    .pipe(gulp.dest("build"));
 }
 
 function typeDoc() {
@@ -71,7 +71,7 @@ function typeDoc() {
 function copyStatic() {
   return gulp
     .src(["README.md", "license", "package.json", "src/**/*.d.ts", "src/**/__snapshots__/**"])
-    .pipe(gulp.dest("dist"));
+    .pipe(gulp.dest("build"));
 }
 
 async function testUnit() {

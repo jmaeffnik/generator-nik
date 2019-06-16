@@ -8,7 +8,7 @@ const baseConfig = {
         "@babel/proposal-object-rest-spread",
     ],
     sourceMaps: true,
-    ignore: ['dist']
+    ignore: ['build']
 };
 
 let config;
@@ -17,21 +17,13 @@ switch (process.env.BABEL_ENV) {
 
     case 'production':
         config = Object.assign({}, baseConfig);
-        config.presets.unshift('jest', 'minify');
+        config.presets.unshift('jest');
         break;
 
     case 'development':
+    case 'test':
         config = Object.assign({}, baseConfig);
         break;
-
-    case 'test':
-        config = Object.assign({}, baseConfig, {
-        // exclude: [
-        //     /node_modules\/(?!@nj)/
-        // ]
-    });
-        break;
-
 }
 
 module.exports = config;

@@ -1,0 +1,13 @@
+{
+  "name": "generator-nik",
+  "version": "0.1.3",
+  "description": "Package scaffold for typescript",
+  "files": [
+    "generators"
+  ],
+  "main": "generators/app/index.js",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "bin": {}
+}
