@@ -59,18 +59,23 @@ function compile() {
     return gulp
         .src(SRC_FILES, {sourcemaps: true})
         .pipe(babel(config))
-        .pipe(gulp.dest(outFile('generators'), {sourcemaps: '.'}));
+        .pipe(gulp.dest(OUT_DIR, {sourcemaps: '.'}));
 }
 
 function tsGen() {
-    const { compilerOptions } = require("./tsconfig");
+    const SRC_FILES = [
+        srcFile('**/*.ts'),
+        srcFile('**/__tests__/**', true),
+        srcFile('**/__mocks__/**', true)
+    ];
 
+    const { compilerOptions } = require("./tsconfig");
     delete compilerOptions.allowJs;
 
     return gulp
-        .src(["src/**/*.ts", "!src/**/__tests__/**", "!src/**/__mocks__/**"])
+        .src(SRC_FILES)
         .pipe(ts(compilerOptions))
-        .dts.pipe(gulp.dest(outFile('generators')));
+        .dts.pipe(gulp.dest(OUT_DIR));
 }
 
 
@@ -78,27 +83,30 @@ function copyStatic() {
 
     const SRC_FILES = [
         srcFile('**/templates/**'),
-    ];
-
-    return gulp.src(SRC_FILES).pipe(gulp.dest(outFile('generators')));
-}
-
-async function buildMeta() {
-    const SRC_FILES = [
         srcFile('.npmignore'),
         'license',
         'README.md'
     ];
 
+    return gulp.src(SRC_FILES).pipe(gulp.dest(OUT_DIR));
+}
+
+async function buildMeta() {
+    // const SRC_FILES = [
+    //     srcFile('.npmignore'),
+    //     'license',
+    //     'README.md'
+    // ];
+
     const {dependencies} = require('./package');
     const buildPkg = require(path.join(__dirname, SRC_DIR, 'package.json'));
 
-    await fs.writeJSON(
+    return await fs.writeJSON(
         path.join(__dirname, OUT_DIR, 'package.json'),
         Object.assign({}, {dependencies}, buildPkg),
         {spaces: 2});
 
-    return gulp.src(SRC_FILES).pipe(gulp.dest(OUT_DIR))
+    // return gulp.src(SRC_FILES).pipe(gulp.dest(OUT_DIR))
 }
 async function testUnit() {
 
