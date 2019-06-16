@@ -66,7 +66,8 @@ function tsGen() {
     const SRC_FILES = [
         srcFile('**/*.ts'),
         srcFile('**/__tests__/**', true),
-        srcFile('**/__mocks__/**', true)
+        srcFile('**/__mocks__/**', true),
+        srcFile('**/templates/**', true)
     ];
 
     const { compilerOptions } = require("./tsconfig");
@@ -83,30 +84,24 @@ function copyStatic() {
 
     const SRC_FILES = [
         srcFile('**/templates/**'),
-        srcFile('.npmignore'),
+        srcFile('**/.npmignore'),
         'license',
         'README.md'
     ];
 
-    return gulp.src(SRC_FILES).pipe(gulp.dest(OUT_DIR));
+    return gulp.src(SRC_FILES, { dot: true }).pipe(gulp.dest(OUT_DIR));
 }
 
 async function buildMeta() {
-    // const SRC_FILES = [
-    //     srcFile('.npmignore'),
-    //     'license',
-    //     'README.md'
-    // ];
 
-    const {dependencies} = require('./package');
+    const {dependencies, version} = require('./package');
     const buildPkg = require(path.join(__dirname, SRC_DIR, 'package.json'));
 
     return await fs.writeJSON(
         path.join(__dirname, OUT_DIR, 'package.json'),
-        Object.assign({}, {dependencies}, buildPkg),
+        Object.assign({}, {version, dependencies}, buildPkg),
         {spaces: 2});
 
-    // return gulp.src(SRC_FILES).pipe(gulp.dest(OUT_DIR))
 }
 async function testUnit() {
 
@@ -128,11 +123,6 @@ async function testCIE2e() {
 
 }
 
-async function bump() {
-
-    return await execa('npm', [ 'version', 'patch'], {cwd: SRC_DIR} )
-}
-
 /**
  * What set of tasks will build our project?
  * @type {Undertaker.TaskFunction}
@@ -150,5 +140,4 @@ module.exports = {
     testCIE2e,
     buildMeta,
     tsGen,
-    bump
 };
