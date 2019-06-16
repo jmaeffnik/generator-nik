@@ -130,7 +130,7 @@ async function testCIE2e() {
 
 async function bump() {
 
-    return await execa.command('npm version patch', {cwd: SRC_DIR} )
+    return await execa('npm', [ 'version', 'patch'], {cwd: SRC_DIR} )
 }
 
 /**
