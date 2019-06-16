@@ -128,6 +128,11 @@ async function testCIE2e() {
 
 }
 
+async function bump() {
+
+    return await execa.command('npm version patch', {cwd: SRC_DIR} )
+}
+
 /**
  * What set of tasks will build our project?
  * @type {Undertaker.TaskFunction}
@@ -144,5 +149,6 @@ module.exports = {
     testCIUnit,
     testCIE2e,
     buildMeta,
-    tsGen
+    tsGen,
+    bump
 };
