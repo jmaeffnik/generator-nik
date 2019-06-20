@@ -2,7 +2,8 @@
   "name": "generator-nik",
   "description": "Package scaffold for typescript",
   "files": [
-    "generators"
+    "generators",
+    "src"
   ],
   "main": "generators/app/index.js",
   "keywords": [

@@ -4,6 +4,7 @@ const babel = require('gulp-babel');
 const path = require('path');
 const execa = require('execa');
 const ts = require("gulp-typescript");
+const sourcemaps = require('gulp-sourcemaps');
 
 const OUT_DIR = 'build';
 const TEST_RUNNER = 'jest';
@@ -42,7 +43,7 @@ async function clean() {
     return await promises;
 }
 
-function compile() {
+function compileSrc() {
 
     /**
      * Where should we get our source files?
@@ -57,9 +58,14 @@ function compile() {
     delete config.ignore;
 
     return gulp
-        .src(SRC_FILES, {sourcemaps: true})
+        .src(SRC_FILES, )
+        .pipe(sourcemaps.init())
         .pipe(babel(config))
-        .pipe(gulp.dest(OUT_DIR, {sourcemaps: '.'}));
+        .pipe(sourcemaps.mapSources(
+            (sourcePath, file) => path.basename(sourcePath)
+        ))
+        .pipe(sourcemaps.write(SRC_DIR, {includeContent: false}))
+        .pipe(gulp.dest(OUT_DIR, ));
 }
 
 function tsGen() {
@@ -90,6 +96,17 @@ function copyStatic() {
     ];
 
     return gulp.src(SRC_FILES, { dot: true }).pipe(gulp.dest(OUT_DIR));
+}
+
+function copySrc() {
+
+    const SRC_FILES = [
+        srcFile('**/*.ts'),
+        srcFile('**/templates/**', true)
+    ];
+
+    return gulp.src(SRC_FILES)
+        .pipe(gulp.dest(path.join(OUT_DIR, SRC_DIR)))
 }
 
 async function buildMeta() {
@@ -123,6 +140,8 @@ async function testCIE2e() {
 
 }
 
+const compile = gulp.series(compileSrc, copySrc);
+
 /**
  * What set of tasks will build our project?
  * @type {Undertaker.TaskFunction}
@@ -133,6 +152,7 @@ module.exports = {
     clean,
     build,
     compile,
+    compileSrc,
     copyStatic,
     testUnit,
     testE2e,

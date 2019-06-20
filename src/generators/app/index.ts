@@ -215,9 +215,6 @@ export default class extends Generator
 
         this.fs.extendJSON(this.destinationPath('package.json'), {
             devDependencies: {
-                "@types/fs-extra": "^7.0.0",
-                "@types/gulp": "^4.0.6",
-                "@types/gulp-babel": "^6.1.29",
                 "gulp-babel": "^8.0.0",
                 "gulp-sourcemaps": "^2.6.5",
                 "gulp-typescript": "^5.0.1",
