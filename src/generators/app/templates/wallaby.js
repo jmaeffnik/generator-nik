@@ -1,3 +1,4 @@
+process.JEST_ENV = 'wallaby';
 module.exports = function () {
     return {
         files: [
@@ -14,7 +15,7 @@ module.exports = function () {
         tests: [
             '!**/node_modules/**',
             '!**/templates/**',
-            '**/*.test.js',
+            'src/**/*.test.js',
         ],
         filesWithNoCoverageCalculated: [
             '**/__mocks__/**',

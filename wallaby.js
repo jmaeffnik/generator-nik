@@ -15,7 +15,7 @@ module.exports = function () {
         tests: [
             '!**/node_modules/**',
             '!**/templates/**',
-            '**/*.test.js',
+            'src/**/*.test.js',
         ],
         filesWithNoCoverageCalculated: [
             '**/__mocks__/**',
