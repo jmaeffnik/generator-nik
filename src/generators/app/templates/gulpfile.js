@@ -22,7 +22,9 @@ const CIJestRunner = runner(['--ci', ...process.argv.slice(3)], TEST_RUNNER);
 async function clean() {
 
     let promises = Promise.all([
-        fs.remove('junit.xml')
+        fs.remove('junit.xml'),
+        fs.remove('build')
+
     ]);
 
     return await promises;
@@ -33,23 +35,12 @@ function copyStatic() {
     const SRC_FILES = [
         'license',
         'README.md',
+        'package.json',
         'src/**',
-        '!src/package.json'
+        '!**/.tmp/**'
     ];
 
     return gulp.src(SRC_FILES, { dot: true }).pipe(gulp.dest(OUT_DIR));
-}
-
-async function buildMeta() {
-
-    const {dependencies, version} = require('./package');
-    const buildPkg = require(path.join(__dirname, SRC_DIR, 'package.json'));
-
-    return await fs.writeJSON(
-        path.join(__dirname, OUT_DIR, 'package.json'),
-        Object.assign({}, {version, dependencies}, buildPkg),
-        {spaces: 2});
-
 }
 
 async function testCIUnit() {
@@ -62,7 +53,7 @@ async function testCIE2e() {
 
 }
 
-const build = gulp.series(clean, copyStatic, buildMeta);
+const build = gulp.series(clean, copyStatic);
 
 module.exports = {
     clean,
@@ -70,5 +61,4 @@ module.exports = {
     copyStatic,
     testCIUnit,
     testCIE2e,
-    buildMeta,
 };
