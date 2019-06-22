@@ -86,10 +86,6 @@ module.exports = class extends Generator {
                 to: this.destinationPath('.gitignore'),
             },
             {
-                from: this.templatePath('.npmrc'),
-                to: this.destinationPath('.npmrc'),
-            },
-            {
                 from: this.templatePath('license'),
                 to: this.destinationPath('license'),
                 type: "ejs"
