@@ -7,7 +7,7 @@ jest.setTimeout(1000 * 60 * 60);
 describe("examples", function()
 {
 
-    const tmpDir = path.join(__dirname, '.tmp');
+    const tmpDir = path.join(process.cwd(), '.tmp');
 
     beforeEach(() =>
     {
