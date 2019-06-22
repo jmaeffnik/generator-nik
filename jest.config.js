@@ -1,64 +1,53 @@
-process.env.BABEL_ENV = "test";
-
 const CI_ROOT = "build";
 const SRC_ROOT = "src";
 const E2E_TESTMATCH = ["**/__tests__/**/*.e2e.[jt]s?(x)"];
 const UNIT_TESTMATCH = ["**/__tests__/**/*.test.[jt]s?(x)"];
+const rooter = arr => root => arr.map((file) => `<rootDir>/${root}/${file}`);
+const e2e = rooter([E2E_TESTMATCH]);
+const unit = rooter(UNIT_TESTMATCH);
+
+
 let config = {};
+const moduleNameMapper = {
+};
 
 let base = {
     modulePathIgnorePatterns: ["templates", ".tmp"]
 };
 
-const pkg = require("./package");
-const modules = `^${pkg.name}/(.*)`;
-const main = `^${pkg.name}$`;
-
 let ciBase = {
-    rootDir: CI_ROOT,
     transform: {},
     reporters: ["default", "jest-junit"],
-    moduleNameMapper: {
-        [modules]: "<rootDir>/$1",
-        [main]: "<rootDir>"
-    },
-    moduleFileExtensions: ["js", "json"]
+    moduleNameMapper
 };
 
 let devBase = {
-    rootDir: SRC_ROOT,
-    moduleNameMapper: {
-        [modules]: "<rootDir>/$1",
-        [main]: "<rootDir>"
-    }
+    moduleNameMapper
 };
 
 let wallabyBase = {
-    moduleNameMapper: {
-        [modules]: "<rootDir>/src/$1",
-        [main]: "<rootDir>/src"
-    }
+    moduleNameMapper
 };
 
 switch (process.env.JEST_ENV) {
     case "ci-unit":
-        config = { ...base, ...ciBase, testMatch: UNIT_TESTMATCH };
+        config = { ...base, ...ciBase, testMatch: unit(CI_ROOT)};
         break;
 
     case "ci-e2e":
-        config = { ...base, ...ciBase, testMatch: E2E_TESTMATCH };
+        config = { ...base, ...ciBase, testMatch: e2e(CI_ROOT) };
         break;
 
     case "dev-unit":
-        config = { ...base, ...devBase, testMatch: UNIT_TESTMATCH };
+        config = { ...base, ...devBase, testMatch: unit(SRC_ROOT) };
         break;
 
     case "dev-e2e":
-        config = { ...base, ...devBase, testMatch: E2E_TESTMATCH };
+        config = { ...base, ...devBase, testMatch: e2e(SRC_ROOT) };
         break;
 
     case "wallaby":
-        config = { ...base, ...wallabyBase, testMatch: UNIT_TESTMATCH };
+        config = { ...base, ...wallabyBase, testMatch: unit(SRC_ROOT) };
         break;
 
     default:

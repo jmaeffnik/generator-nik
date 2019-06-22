@@ -1,23 +1,21 @@
-process.env.BABEL_ENV = 'test';
-process.env.JEST_ENV = "wallaby";
-
-module.exports = function (wallaby) {
+process.JEST_ENV = 'wallaby';
+module.exports = function () {
     return {
         files: [
             '!**/node_modules/**',
             '!build/**',
-            '!**/*.test.ts',
-            '!**/*.e2e.ts',
+            '!**/*.test.js',
+            '!**/*.e2e.js',
             {pattern: '**/templates/**', instrument: false},
             {pattern: '**/__fixtures__/**', instrument: false},
             {pattern: '**/__snapshots__/**', instrument: false},
             '**/__mocks__/**',
-            'src/**/*.ts',
+            'src/**/*.js',
         ],
         tests: [
             '!**/node_modules/**',
             '!**/templates/**',
-            '**/*.test.ts',
+            '**/*.test.js',
         ],
         filesWithNoCoverageCalculated: [
             '**/__mocks__/**',
@@ -30,10 +28,6 @@ module.exports = function (wallaby) {
         },
 
         testFramework: 'jest',
-
-        compilers: {
-            '**/*.ts?(x)': wallaby.compilers.babel()
-        },
     };
 };
 

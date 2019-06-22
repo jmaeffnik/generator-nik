@@ -1,6 +1,6 @@
-import helpers from "yeoman-test";
-import * as path from "path";
-import * as fs from "fs-extra";
+const helpers = require('yeoman-test');
+const path = require('path');
+const fs = require('fs-extra');
 
 jest.setTimeout(1000 * 60 * 60);
 
@@ -18,6 +18,10 @@ describe("examples", function()
     {
         await helpers.run(path.join(__dirname, '../../app'))
             .inDir(tmpDir)
+            .withPrompts({
+                appName: 'app-name',
+                description: 'app description'
+            })
 
     });
 

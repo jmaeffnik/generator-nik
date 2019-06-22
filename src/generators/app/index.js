@@ -1,42 +1,22 @@
-import Generator from "yeoman-generator";
-
-interface IScaffoldMeta
-{
-    to: string
-    from: string
-    type?: 'ejs'
-}
-
-type IScaffoldManifest = IScaffoldMeta[]
-
-export default class extends Generator
-{
+const Generator = require('yeoman-generator');
+module.exports = class extends Generator {
 
     /**
      * Initial custom data
      */
-    _store: {
-        appName: string;
-        license: string;
-        runInstall: boolean;
-        answers;
-    };
 
-    constructor(args, opts)
-    {
+    constructor(args, opts) {
         super(args, opts);
-        this._store = {} as any;
+        this._store = {};
         this.argument('appName', {type: String, description: 'what is the appName of the project?', required: false});
         this._store.appName = this.options.appName;
     }
 
-    async prompting()
-    {
+    async prompting() {
 
         let baseQuestions = [];
 
-        if(!this._store.appName)
-        {
+        if (!this._store.appName) {
             baseQuestions.push({
                 type: 'input',
                 name: 'appName',
@@ -75,14 +55,13 @@ export default class extends Generator
                 name: 'runInstall',
                 message: 'Would you like to install dependencies?',
                 default: true
-            }] as any);
+            }]);
 
         this._store = Object.assign(this._store, answers);
 
     }
 
-    writing()
-    {
+    writing() {
         this._meta();
         this._lang();
         this._test();
@@ -90,9 +69,8 @@ export default class extends Generator
         this._utilities();
     }
 
-    _meta()
-    {
-        let scaffoldManifest: IScaffoldManifest = [
+    _meta() {
+        let scaffoldManifest = [
             {
                 from: this.templatePath('package.ejs'),
                 to: this.destinationPath('package.json'),
@@ -112,11 +90,6 @@ export default class extends Generator
                 to: this.destinationPath('.npmrc'),
             },
             {
-                from: this.templatePath('package-meta.ejs'),
-                to: this.destinationPath('src/package.json'),
-                type: "ejs"
-            },
-            {
                 from: this.templatePath('license'),
                 to: this.destinationPath('license'),
                 type: "ejs"
@@ -125,18 +98,8 @@ export default class extends Generator
         this._scaffold(scaffoldManifest);
     }
 
-    _lang()
-    {
-        let scaffoldManifest: IScaffoldManifest = [
-            {
-                from: this.templatePath('babel.config.js'),
-                to: this.destinationPath('babel.config.js')
-            },
-            {
-                from: this.templatePath('tsconfig.ejs'),
-                to: this.destinationPath('tsconfig.json'),
-                type: "ejs"
-            },
+    _lang() {
+        let scaffoldManifest = [
             {
                 from: this.templatePath('src'),
                 to: this.destinationPath('src')
@@ -146,23 +109,14 @@ export default class extends Generator
         this.fs.extendJSON(this.destinationPath('package.json'), {
             devDependencies: {
                 "@types/node": "10.14.4",
-                "@babel/core": "^7.4.5",
-                "@babel/plugin-proposal-class-properties": "^7.4.4",
-                "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
-                "@babel/preset-env": "^7.4.5",
-                "@babel/preset-typescript": "^7.3.3",
-                "babel-preset-minify": "^0.5.0",
-                "babel-preset-jest": "^24.6.0",
-                "typescript": "^3.4.5",
             }
         });
 
         this._scaffold(scaffoldManifest);
     }
 
-    _test()
-    {
-        let scaffoldManifest: IScaffoldManifest = [
+    _test() {
+        let scaffoldManifest = [
             {
                 from: this.templatePath('wallaby.js'),
                 to: this.destinationPath('wallaby.js')
@@ -183,9 +137,8 @@ export default class extends Generator
         this._scaffold(scaffoldManifest);
     }
 
-    _build()
-    {
-        let scaffoldManifest: IScaffoldManifest = [
+    _build() {
+        let scaffoldManifest = [
             {
                 from: this.templatePath('.azure-pipelines.yml'),
                 to: this.destinationPath('.azure-pipelines.yml')
@@ -199,9 +152,8 @@ export default class extends Generator
         this._scaffold(scaffoldManifest);
     }
 
-    _utilities()
-    {
-        let scaffoldManifest: IScaffoldManifest = [
+    _utilities() {
+        let scaffoldManifest = [
             {
                 from: this.templatePath('gulpfile.js'),
                 to: this.destinationPath('gulpfile.js')
@@ -209,15 +161,12 @@ export default class extends Generator
             {
                 from: this.templatePath('.editorconfig'),
                 to: this.destinationPath('.editorconfig')
-            },
+             },
 
         ];
 
         this.fs.extendJSON(this.destinationPath('package.json'), {
             devDependencies: {
-                "gulp-babel": "^8.0.0",
-                "gulp-sourcemaps": "^2.6.5",
-                "gulp-typescript": "^5.0.1",
                 "fs-extra": "^8.0.1",
                 "gulp": "^4.0.2",
                 "execa": "^1.0.0"
@@ -228,27 +177,20 @@ export default class extends Generator
 
     }
 
-    _scaffold(manifest: IScaffoldManifest)
-    {
-        for(const el of manifest)
-        {
+    _scaffold(manifest) {
+        for (const el of manifest) {
 
-            if(el.type === "ejs")
-            {
+            if (el.type === "ejs") {
                 this.fs.copyTpl(el.from, el.to, this._store);
-            }
-            else
-            {
+            } else {
                 this.fs.copy(el.from, el.to);
             }
 
         }
     }
 
-    install()
-    {
-        if(this._store.runInstall)
-        {
+    install() {
+        if (this._store.runInstall) {
             this.npmInstall();
         }
     }
