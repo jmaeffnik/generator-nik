@@ -1,5 +1,5 @@
 {
-  "name": "generator-nik",
+  "name": "generator-nk",
   "description": "Package scaffold for javascript",
   "files": [
     "generators"
