@@ -8,7 +8,7 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "version": "0.1.8",
+  "version": "0.1.9",
   "dependencies": {
     "yeoman-generator": "^4.0.1"
   },
