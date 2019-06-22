@@ -1,4 +1,4 @@
 # generator-nj
 
 ## Motivation
-A base scaffold for typescript packages.
+A base scaffold for javascript packages.
