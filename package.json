@@ -21,13 +21,15 @@
     "jest": "^24.8.0",
     "fs-extra": "^8.0.1",
     "execa": "^1.0.0",
-    "jest-junit": "^6.4.0"
+    "jest-junit": "^6.4.0",
+    "codecov": "^3.5.0"
   },
   "scripts": {
     "build": "gulp build",
     "test:ci-unit": "gulp testCIUnit",
     "test:ci-e2e": "gulp testCIE2e",
     "bump": "npm version patch",
-    "clean": "gulp clean"
+    "clean": "gulp clean",
+    "codecov": "gulp codecov"
   }
 }

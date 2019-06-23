@@ -2,10 +2,12 @@ const fs = require('fs-extra');
 const gulp = require('gulp');
 const path = require('path');
 const execa = require('execa');
+const {env} = process;
 
 const SRC_DIR = 'src';
 const OUT_DIR = 'build';
 const TEST_RUNNER = 'jest';
+const COVERAGE_REPORTER = 'codecov';
 
 /**
  * Runner for different jest environments, configurable using the JEST_ENV environment variable.
@@ -18,6 +20,7 @@ const runner = (args, cmd) => async env => {
 };
 
 const CIJestRunner = runner(['--ci', ...process.argv.slice(3)], TEST_RUNNER);
+const codeCovRunner = runner(['-t', env.TOKEN, '-F', env.CI_OS], COVERAGE_REPORTER);
 
 async function clean() {
 
@@ -53,6 +56,10 @@ async function testCIE2e() {
 
 }
 
+async function codecov() {
+    return await codeCovRunner({});
+}
+
 const build = gulp.series(clean, copyStatic);
 
 module.exports = {
@@ -61,4 +68,5 @@ module.exports = {
     copyStatic,
     testCIUnit,
     testCIE2e,
+    codecov
 };

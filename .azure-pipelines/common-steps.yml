@@ -17,10 +17,6 @@ steps:
     inputs:
       verbose: false
 
-  # codecov
-  - script: npm install -g codecov
-    displayName: 'Install codecov'
-
   # build project
   - script: npm run build
     displayName: 'Run Build'
@@ -29,8 +25,12 @@ steps:
   - script: npm run test:ci-unit
     displayName: 'Run CI Unit Tests'
 
-  - script: codecov -t $(CODE_COV_GENERATOR_NK) -F "$(Agent.OS)-unit"
+  - script: npm run codecov
     displayName: 'Publish codecov'
+    env:
+      TOKEN: $(CODE_COV_GENERATOR_NK)
+      CI_OS: $(Agent.OS)
+      TEST_TYPE: 'unit'
 
   # Publish CI test results
   - task: PublishTestResults@2
@@ -44,10 +44,14 @@ steps:
   - script: npm run test:ci-e2e
     displayName: 'Run CI E2E Tests'
 
-  - script: codecov -t $(CODE_COV_GENERATOR_NK) -F "$(Agent.OS)-e2e"
+  - script: npm run codecov
     displayName: 'Publish codecov'
+    env:
+      TOKEN: $(CODE_COV_GENERATOR_NK)
+      CI_OS: $(Agent.OS)
+      TEST_TYPE: 'e2e'
 
-      # Publish CI test results
+  # Publish CI test results
   - task: PublishTestResults@2
     inputs:
       testResultsFiles: '*junit.xml'
