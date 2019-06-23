@@ -1,5 +1,5 @@
 {
-  "name": "generator-nik",
+  "name": "generator-nk",
   "description": "Package scaffold for javascript",
   "files": [
     "generators"
@@ -8,7 +8,7 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "version": "0.1.7",
+  "version": "0.1.12",
   "dependencies": {
     "yeoman-generator": "^4.0.1"
   },

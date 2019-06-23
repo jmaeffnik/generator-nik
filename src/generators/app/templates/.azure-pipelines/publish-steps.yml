@@ -11,7 +11,6 @@ steps:
       inputs:
         command: publish
         workingDir: build
-        publishRegistry: useFeed
-        publishFeed: js-dev
+        publishEndpoint: npm
 
       condition: succeeded()
