@@ -12,7 +12,8 @@ const moduleNameMapper = {
 };
 
 let base = {
-    modulePathIgnorePatterns: ["templates", ".tmp"]
+    modulePathIgnorePatterns: ["templates", ".tmp"],
+    collectCoverage: true
 };
 
 let ciBase = {

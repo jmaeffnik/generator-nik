@@ -23,7 +23,8 @@ async function clean() {
 
     let promises = Promise.all([
         fs.remove('junit.xml'),
-        fs.remove('build')
+        fs.remove('build'),
+        fs.remove('coverage'),
 
     ]);
 

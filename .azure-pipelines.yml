@@ -27,6 +27,10 @@ jobs:
       - template: .azure-pipelines/publish-steps.yml
 
 variables:
+  - group: Secrets
   # Used by chalk. Ensures output from Jest includes ANSI escape characters that are needed to match test snapshots.
-  FORCE_COLOR: 1
-  CI: 1
+  - name: FORCE_COLOR
+    value: 1
+
+  - name: CI
+    value: 1

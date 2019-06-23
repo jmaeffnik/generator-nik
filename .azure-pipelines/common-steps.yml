@@ -17,6 +17,10 @@ steps:
     inputs:
       verbose: false
 
+  # codecov
+  - script: npm install -g codecov
+    displayName: 'Install codecov'
+
   # build project
   - script: npm run build
     displayName: 'Run Build'
@@ -24,6 +28,9 @@ steps:
     # test project
   - script: npm run test:ci-unit
     displayName: 'Run CI Unit Tests'
+
+  - script: codecov -t $(CODE_COV_GENERATOR_NK)
+    displayName: 'Publish codecov'
 
   # Publish CI test results
   - task: PublishTestResults@2
@@ -37,7 +44,10 @@ steps:
   - script: npm run test:ci-e2e
     displayName: 'Run CI E2E Tests'
 
-  # Publish CI test results
+  - script: codecov -t $(CODE_COV_GENERATOR_NK)
+    displayName: 'Publish codecov'
+
+      # Publish CI test results
   - task: PublishTestResults@2
     inputs:
       testResultsFiles: '*junit.xml'
