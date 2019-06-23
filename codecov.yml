@@ -1,0 +1,10 @@
+coverage:
+  status:
+    project:
+      default: off
+      unit:
+        target: 80%
+        flags: unit
+      e2e:
+        target: 80%
+        flags: e2e
