@@ -29,7 +29,6 @@ steps:
     displayName: 'Publish codecov'
     env:
       TOKEN: $(CODE_COV_GENERATOR_NK)
-      CI_OS: $(Agent.OS)
       TEST_TYPE: 'unit'
 
   # Publish CI test results
@@ -48,7 +47,6 @@ steps:
     displayName: 'Publish codecov'
     env:
       TOKEN: $(CODE_COV_GENERATOR_NK)
-      CI_OS: $(Agent.OS)
       TEST_TYPE: 'e2e'
 
   # Publish CI test results

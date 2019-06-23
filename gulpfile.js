@@ -20,7 +20,7 @@ const runner = (args, cmd) => async env => {
 };
 
 const CIJestRunner = runner(['--ci', ...process.argv.slice(3)], TEST_RUNNER);
-const codeCovRunner = runner(['-t', env.TOKEN, '-F', env.CI_OS], COVERAGE_REPORTER);
+const codeCovRunner = runner(['-t', env.TOKEN, '-F', env['Agent.OS'].concat(env['TEST_TYPE'])], COVERAGE_REPORTER);
 
 async function clean() {
 
