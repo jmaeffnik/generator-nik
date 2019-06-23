@@ -38,7 +38,6 @@ function copyStatic() {
         'README.md',
         'package.json',
         'src/**',
-        '!**/.tmp/**'
     ];
 
     return gulp.src(SRC_FILES, { dot: true }).pipe(gulp.dest(OUT_DIR));

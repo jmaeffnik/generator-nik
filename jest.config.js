@@ -1,5 +1,5 @@
-const CI_ROOT = "build";
 const SRC_ROOT = "src";
+const CI_ROOT = SRC_ROOT;
 const E2E_TESTMATCH = ["**/__tests__/**/*.e2e.[jt]s?(x)"];
 const UNIT_TESTMATCH = ["**/__tests__/**/*.test.[jt]s?(x)"];
 const rooter = arr => root => arr.map((file) => `<rootDir>/${root}/${file}`);
